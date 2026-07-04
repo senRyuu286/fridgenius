@@ -1,0 +1,59 @@
+# Secrets, Credentials & API Keys (Gemini Security)
+.env
+*.env
+auth_secrets.json
+lib/api_config.g.dart
+*.jks
+*.keystore
+*.p12
+
+# System & Editor Files
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+*.ipr
+*.iws
+*.class
+*.pyc
+*.swp
+.history
+.svn/
+
+# VS Code (Uncomment if you want to ignore workspace configs)
+#.vscode/
+
+# Flutter / Dart Core
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+/coverage/
+doc/api/
+app.*.symbols
+app.*.map.json
+
+# Android Native
+android/.gradle/
+android/local.properties
+android/app/debug/
+android/app/profile/
+android/app/release/
+android/**/GeneratedPluginRegistrant.java
+
+# iOS Native
+ios/.symlinks/
+ios/Pods/
+ios/Flutter/.last_build_id
+ios/Runner/GeneratedPluginRegistrant.h
+ios/Runner/GeneratedPluginRegistrant.m
+ios/Runner/GeneratedPluginRegistrant.swift
+**/*.xcuserdata/
+*.uninstalledproducts
+
+# Firebase Tools, Emulators & Logs
+.firebase/
+firebase.exe
+*.log
