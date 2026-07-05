@@ -48,7 +48,7 @@ class SignInScreen extends ConsumerWidget {
                 label: 'Sign In',
                 onPressed: () {
                   if (vm.submit()) {
-                    context.go('/favorites');
+                    context.go('/home');
                   }
                 },
               ),

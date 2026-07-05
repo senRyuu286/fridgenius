@@ -57,7 +57,7 @@ class SignUpScreen extends ConsumerWidget {
                 variant: NeoButtonVariant.secondary,
                 onPressed: () {
                   if (vm.submit()) {
-                    context.go('/favorites');
+                    context.go('/home');
                   }
                 },
               ),

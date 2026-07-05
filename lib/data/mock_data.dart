@@ -146,16 +146,14 @@ abstract class MockData {
     'r5': '🥞',
   };
 
-  static const List<Color> _accents = [
-    AppColors.coral,
-    AppColors.gold,
-    AppColors.mint,
-  ];
-
   static String emojiOf(Recipe r) => _emoji[r.id] ?? '🍽️';
 
-  static Color accentOf(Recipe r) =>
-      _accents[r.id.hashCode.abs() % _accents.length];
+  /// Assigns each recipe a vivid tile color by its position in [recipes], so
+  /// the grid cycles evenly through the palette.
+  static Color accentOf(Recipe r) {
+    final i = recipes.indexWhere((x) => x.id == r.id);
+    return AppColors.tileColors[(i < 0 ? 0 : i) % AppColors.tileColors.length];
+  }
 
   /// Simple display tags derived from existing fields (no model changes).
   static List<String> tagsOf(Recipe r) => [

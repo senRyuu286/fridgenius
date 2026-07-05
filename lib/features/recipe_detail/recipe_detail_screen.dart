@@ -6,7 +6,6 @@ import '../../data/mock_data.dart';
 import '../../models/recipe.dart';
 import '../../theme/app_theme.dart';
 import '../../widgets/neo_widgets.dart';
-import '../favorites/favorites_screen.dart' show RecipeImageBlock;
 import '../favorites/favorites_view_model.dart';
 import 'recipe_detail_view_model.dart';
 
@@ -26,14 +25,15 @@ class RecipeDetailScreen extends ConsumerWidget {
       body: DottedBackground(
         child: Column(
           children: [
-            NeoAppBar(
+            NeoHeader(
               title: recipe.title,
               onBack: () => _back(context),
-              actionIcon:
-                  isFavorite ? Icons.favorite : Icons.favorite_border,
-              actionColor: isFavorite ? AppColors.coral : AppColors.white,
-              onAction: () =>
-                  ref.read(favoritesProvider.notifier).toggle(recipe),
+              trailing: NeoSquareButton(
+                icon: isFavorite ? Icons.favorite : Icons.favorite_border,
+                color: isFavorite ? AppColors.coral : AppColors.white,
+                onTap: () =>
+                    ref.read(favoritesProvider.notifier).toggle(recipe),
+              ),
             ),
             Expanded(
               child: ListView(
@@ -44,9 +44,7 @@ class RecipeDetailScreen extends ConsumerWidget {
                     child: RecipeImageBlock(
                         recipe: recipe, height: 200, rounded: true),
                   ),
-                  const SizedBox(height: 20),
-                  Text(recipe.title, style: AppText.display),
-                  const SizedBox(height: 8),
+                  const SizedBox(height: 16),
                   Text(recipe.description, style: AppText.body),
                   const SizedBox(height: 16),
                   Wrap(
@@ -85,7 +83,7 @@ class RecipeDetailScreen extends ConsumerWidget {
     if (context.canPop()) {
       context.pop();
     } else {
-      context.go('/favorites');
+      context.go('/home');
     }
   }
 }
@@ -136,7 +134,7 @@ class _Ingredients extends StatelessWidget {
                   Text(ing.amount, style: AppText.bodyBold),
                   if (ing.isMissing) ...[
                     const SizedBox(width: 8),
-                    const NeoPill(label: 'need', color: AppColors.coral),
+                    const NeoPill(label: 'missing', color: AppColors.alert),
                   ],
                 ],
               ),

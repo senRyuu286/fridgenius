@@ -25,10 +25,7 @@ class ProfileScreen extends ConsumerWidget {
       body: DottedBackground(
         child: Column(
           children: [
-            NeoAppBar(
-              title: 'Profile',
-              onBack: () => _back(context),
-            ),
+            const NeoHeader(title: 'Profile'),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.all(20),
@@ -38,14 +35,15 @@ class ProfileScreen extends ConsumerWidget {
                       width: 96,
                       height: 96,
                       alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: AppColors.coral,
-                        border: AppBorders.all,
-                        borderRadius: AppRadii.cardRadius,
+                      decoration: const BoxDecoration(
+                        color: AppColors.avatar,
+                        shape: BoxShape.circle,
+                        border: Border.fromBorderSide(AppBorders.side),
                         boxShadow: AppShadows.hard,
                       ),
                       child: Text(initials,
-                          style: AppText.display.copyWith(fontSize: 40)),
+                          style: AppText.display.copyWith(
+                              fontSize: 38, color: AppColors.white)),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -94,14 +92,6 @@ class ProfileScreen extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  void _back(BuildContext context) {
-    if (context.canPop()) {
-      context.pop();
-    } else {
-      context.go('/favorites');
-    }
   }
 }
 
