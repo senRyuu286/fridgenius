@@ -19,7 +19,7 @@ Thumbs.db
 *.swp
 .history
 .svn/
-
+.claude/
 # VS Code (Uncomment if you want to ignore workspace configs)
 #.vscode/
 

@@ -6,7 +6,7 @@ part 'recipe.g.dart';
 enum Difficulty { easy, medium, hard }
 
 @freezed
-class Recipe with _$Recipe {
+abstract class Recipe with _$Recipe {
   const Recipe._();
 
   const factory Recipe({
@@ -36,7 +36,7 @@ class Recipe with _$Recipe {
 }
 
 @freezed
-class RecipeIngredient with _$RecipeIngredient {
+abstract class RecipeIngredient with _$RecipeIngredient {
   const factory RecipeIngredient({
     required String name,
     required String amount, 

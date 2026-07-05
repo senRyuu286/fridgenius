@@ -1,0 +1,57 @@
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'recipe.dart';
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_Recipe _$RecipeFromJson(Map<String, dynamic> json) => _Recipe(
+  id: json['id'] as String,
+  title: json['title'] as String,
+  description: json['description'] as String,
+  prepTimeMinutes: (json['prepTimeMinutes'] as num).toInt(),
+  cookTimeMinutes: (json['cookTimeMinutes'] as num).toInt(),
+  difficulty: $enumDecode(_$DifficultyEnumMap, json['difficulty']),
+  ingredients: (json['ingredients'] as List<dynamic>)
+      .map((e) => RecipeIngredient.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  instructions: (json['instructions'] as List<dynamic>)
+      .map((e) => e as String)
+      .toList(),
+  imageUrl: json['imageUrl'] as String?,
+  source: json['source'] as String? ?? 'gemini',
+);
+
+Map<String, dynamic> _$RecipeToJson(_Recipe instance) => <String, dynamic>{
+  'id': instance.id,
+  'title': instance.title,
+  'description': instance.description,
+  'prepTimeMinutes': instance.prepTimeMinutes,
+  'cookTimeMinutes': instance.cookTimeMinutes,
+  'difficulty': _$DifficultyEnumMap[instance.difficulty]!,
+  'ingredients': instance.ingredients,
+  'instructions': instance.instructions,
+  'imageUrl': instance.imageUrl,
+  'source': instance.source,
+};
+
+const _$DifficultyEnumMap = {
+  Difficulty.easy: 'easy',
+  Difficulty.medium: 'medium',
+  Difficulty.hard: 'hard',
+};
+
+_RecipeIngredient _$RecipeIngredientFromJson(Map<String, dynamic> json) =>
+    _RecipeIngredient(
+      name: json['name'] as String,
+      amount: json['amount'] as String,
+      isMissing: json['isMissing'] as bool? ?? false,
+    );
+
+Map<String, dynamic> _$RecipeIngredientToJson(_RecipeIngredient instance) =>
+    <String, dynamic>{
+      'name': instance.name,
+      'amount': instance.amount,
+      'isMissing': instance.isMissing,
+    };
