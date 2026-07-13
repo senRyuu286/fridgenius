@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../data/mock_data.dart';
-import '../../models/user_profile.dart';
+import '../utils/mock_data.dart';
+import '../models/user_profile.dart';
 
 /// ViewModel for the profile screen. Exposes mock user data for now.
 class ProfileViewModel extends Notifier<UserProfile> {

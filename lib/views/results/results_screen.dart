@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../widgets/neo_widgets.dart';
-import 'results_view_model.dart';
+import '../../viewmodels/results_view_model.dart';
 
 /// Recipe results: ranked recipe rows. Exact matches come first, then recipes
 /// that only need 1–2 extra items (flagged with a "missing" badge).

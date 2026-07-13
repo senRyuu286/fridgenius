@@ -4,16 +4,16 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../theme/app_theme.dart';
 import '../../widgets/neo_widgets.dart';
-import 'sign_in_view_model.dart';
+import '../../viewmodels/sign_up_view_model.dart';
 
-/// Sign In: email + password, Sign In CTA, link to Sign Up. Mock validation.
-class SignInScreen extends ConsumerWidget {
-  const SignInScreen({super.key});
+/// Sign Up: name + email + password, Create Account CTA, link to Sign In.
+class SignUpScreen extends ConsumerWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(signInProvider);
-    final vm = ref.read(signInProvider.notifier);
+    final state = ref.watch(signUpProvider);
+    final vm = ref.read(signUpProvider.notifier);
 
     return Scaffold(
       body: DottedBackground(
@@ -21,11 +21,19 @@ class SignInScreen extends ConsumerWidget {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
             children: [
-              Text('Welcome back', style: AppText.display),
+              Text('Create account', style: AppText.display),
               const SizedBox(height: 8),
-              Text('Sign in to keep cooking with what you have.',
+              Text('Start turning your fridge into dinner.',
                   style: AppText.body),
               const SizedBox(height: 32),
+              NeoTextField(
+                label: 'Name',
+                hint: 'Alex Rivera',
+                prefixIcon: Icons.person_outline,
+                errorText: state.nameError,
+                onChanged: vm.setName,
+              ),
+              const SizedBox(height: 20),
               NeoTextField(
                 label: 'Email',
                 hint: 'you@fridgenius.app',
@@ -45,7 +53,8 @@ class SignInScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 32),
               NeoButton(
-                label: 'Sign In',
+                label: 'Create Account',
+                variant: NeoButtonVariant.secondary,
                 onPressed: () {
                   if (vm.submit()) {
                     context.go('/home');
@@ -53,7 +62,7 @@ class SignInScreen extends ConsumerWidget {
                 },
               ),
               const SizedBox(height: 24),
-              _SignUpLink(),
+              _SignInLink(),
             ],
           ),
         ),
@@ -62,16 +71,16 @@ class SignInScreen extends ConsumerWidget {
   }
 }
 
-class _SignUpLink extends StatelessWidget {
+class _SignInLink extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text("New here? ", style: AppText.body),
+        Text('Already have an account? ', style: AppText.body),
         GestureDetector(
-          onTap: () => context.go('/signup'),
-          child: Text('Create an account',
+          onTap: () => context.go('/signin'),
+          child: Text('Sign in',
               style: AppText.bodyBold.copyWith(
                 decoration: TextDecoration.underline,
                 color: AppColors.coral,

@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../theme/app_theme.dart';
 import '../../widgets/neo_widgets.dart';
-import 'fridge_view_model.dart';
+import '../../viewmodels/fridge_view_model.dart';
 
 /// Fridge tab: add the ingredients you have on hand as removable chips, then
 /// generate ranked recipes you can cook right now.

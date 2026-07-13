@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../theme/app_theme.dart';
+import '../theme/app_theme.dart';
 
 /// A single onboarding value-prop page.
 class OnboardingPage {

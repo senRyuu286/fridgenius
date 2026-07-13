@@ -4,7 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../theme/app_theme.dart';
 import '../../widgets/neo_widgets.dart';
-import 'onboarding_view_model.dart';
+import '../../viewmodels/onboarding_view_model.dart';
 
 /// Onboarding: 3 swipeable value-prop pages, page indicator, Get Started CTA.
 class OnboardingScreen extends ConsumerStatefulWidget {

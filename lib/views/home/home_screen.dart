@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../data/mock_data.dart';
+import '../../utils/mock_data.dart';
 import '../../widgets/neo_widgets.dart';
-import 'home_view_model.dart';
+import '../../viewmodels/home_view_model.dart';
 
 /// Home tab: browse all recipes as a colorful 2-column grid of tiles.
 class HomeScreen extends ConsumerWidget {

@@ -4,34 +4,24 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../theme/app_theme.dart';
 import '../../widgets/neo_widgets.dart';
-import 'search_view_model.dart';
+import '../../viewmodels/favorites_view_model.dart';
 
-/// Search tab: filter recipes by name or ingredient, shown as a grid.
-class SearchScreen extends ConsumerWidget {
-  const SearchScreen({super.key});
+/// Favorites: saved recipes as a grid of tiles, with an empty-state variant.
+class FavoritesScreen extends ConsumerWidget {
+  const FavoritesScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final query = ref.watch(searchQueryProvider);
-    final results = ref.watch(searchResultsProvider);
+    final favorites = ref.watch(favoritesProvider);
 
     return Scaffold(
       body: DottedBackground(
         child: Column(
           children: [
-            const NeoHeader(title: 'Search'),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 12, 20, 8),
-              child: NeoTextField(
-                label: 'Find a recipe',
-                hint: 'e.g. Pasta, Tacos, Avocado',
-                prefixIcon: Icons.search,
-                onChanged: ref.read(searchQueryProvider.notifier).setQuery,
-              ),
-            ),
+            const NeoHeader(title: 'Saved'),
             Expanded(
-              child: results.isEmpty
-                  ? _NoResults(query: query)
+              child: favorites.isEmpty
+                  ? const _EmptyFavorites()
                   : GridView.builder(
                       padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
                       gridDelegate:
@@ -41,9 +31,9 @@ class SearchScreen extends ConsumerWidget {
                         crossAxisSpacing: 16,
                         childAspectRatio: 0.80,
                       ),
-                      itemCount: results.length,
+                      itemCount: favorites.length,
                       itemBuilder: (context, i) {
-                        final recipe = results[i];
+                        final recipe = favorites[i];
                         return RecipeTile(
                           recipe: recipe,
                           onTap: () => context.push('/recipe/${recipe.id}'),
@@ -58,10 +48,8 @@ class SearchScreen extends ConsumerWidget {
   }
 }
 
-class _NoResults extends StatelessWidget {
-  const _NoResults({required this.query});
-
-  final String query;
+class _EmptyFavorites extends StatelessWidget {
+  const _EmptyFavorites();
 
   @override
   Widget build(BuildContext context) {
@@ -72,14 +60,32 @@ class _NoResults extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text('🔍', style: TextStyle(fontSize: 44)),
-              const SizedBox(height: 16),
-              Text('NO MATCHES', style: AppText.title),
+              Container(
+                width: 96,
+                height: 96,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  color: AppColors.gold,
+                  border: AppBorders.all,
+                  borderRadius: AppRadii.cardRadius,
+                ),
+                child: const Text('🗂️', style: TextStyle(fontSize: 44)),
+              ),
+              const SizedBox(height: 20),
+              Text('NO FAVORITES YET',
+                  style: AppText.title, textAlign: TextAlign.center),
               const SizedBox(height: 8),
               Text(
-                'Nothing found for "$query". Try a different ingredient or dish.',
+                'Recipes you save will show up here so they are ready when '
+                'hunger strikes.',
                 style: AppText.body,
                 textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 20),
+              NeoButton(
+                label: 'Browse Recipes',
+                icon: Icons.search,
+                onPressed: () => context.go('/home'),
               ),
             ],
           ),

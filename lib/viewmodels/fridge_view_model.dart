@@ -1,6 +1,6 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../models/ingredient.dart';
+import '../models/ingredient.dart';
 
 /// ViewModel for the Fridge tab: the list of ingredients the user has on hand,
 /// with add / remove / clear actions.

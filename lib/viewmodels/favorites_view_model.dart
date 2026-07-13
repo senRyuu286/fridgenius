@@ -1,7 +1,7 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../data/mock_data.dart';
-import '../../models/recipe.dart';
+import '../utils/mock_data.dart';
+import '../models/recipe.dart';
 
 /// ViewModel for saved recipes. Also owns the favorite toggle used by the
 /// recipe detail screen so both screens stay in sync.

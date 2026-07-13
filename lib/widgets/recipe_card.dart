@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../data/mock_data.dart';
+import '../utils/mock_data.dart';
 import '../models/recipe.dart';
 import '../theme/app_theme.dart';
 import 'neo_pill.dart';

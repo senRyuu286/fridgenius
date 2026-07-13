@@ -1,18 +1,18 @@
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../features/auth/sign_in_screen.dart';
-import '../features/auth/sign_up_screen.dart';
-import '../features/favorites/favorites_screen.dart';
-import '../features/fridge/fridge_screen.dart';
-import '../features/gallery/gallery_screen.dart';
-import '../features/home/home_screen.dart';
-import '../features/onboarding/onboarding_screen.dart';
-import '../features/profile/profile_screen.dart';
-import '../features/recipe_detail/recipe_detail_screen.dart';
-import '../features/results/results_screen.dart';
-import '../features/search/search_screen.dart';
-import '../features/shell/main_scaffold.dart';
+import '../views/auth/sign_in_screen.dart';
+import '../views/auth/sign_up_screen.dart';
+import '../views/favorites/favorites_screen.dart';
+import '../views/fridge/fridge_screen.dart';
+import '../views/gallery/gallery_screen.dart';
+import '../views/home/home_screen.dart';
+import '../views/onboarding/onboarding_screen.dart';
+import '../views/profile/profile_screen.dart';
+import '../views/recipe_detail/recipe_detail_screen.dart';
+import '../views/results/results_screen.dart';
+import '../views/search/search_screen.dart';
+import '../views/shell/main_scaffold.dart';
 
 /// App navigation. UI-phase flow:
 /// onboarding → sign in / sign up → main shell (Home / Search / Fridge /
