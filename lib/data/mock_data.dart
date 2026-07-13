@@ -35,12 +35,32 @@ abstract class MockData {
         RecipeIngredient(name: 'Parmesan', amount: '30 g', isMissing: true),
         RecipeIngredient(name: 'Parsley', amount: 'a handful'),
       ],
-      instructions: [
-        'Boil the spaghetti in well-salted water until al dente.',
-        'Melt butter and gently fry the sliced garlic until fragrant.',
-        'Toss the drained pasta with the garlic butter and a splash of '
-            'pasta water.',
-        'Finish with grated parmesan and chopped parsley.',
+      steps: [
+        RecipeStep(
+          order: 1,
+          title: 'Boil pasta',
+          instruction:
+              'Boil the spaghetti in well-salted water until al dente.',
+          timerSeconds: 600,
+        ),
+        RecipeStep(
+          order: 2,
+          title: 'Make garlic butter',
+          instruction:
+              'Melt butter and gently fry the sliced garlic until fragrant.',
+          timerSeconds: 120,
+        ),
+        RecipeStep(
+          order: 3,
+          instruction:
+              'Toss the drained pasta with the garlic butter and a splash '
+              'of pasta water.',
+        ),
+        RecipeStep(
+          order: 4,
+          instruction:
+              'Finish with grated parmesan and chopped parsley.',
+        ),
       ],
     ),
     const Recipe(
@@ -59,11 +79,23 @@ abstract class MockData {
         RecipeIngredient(name: 'Chickpeas', amount: '1 can'),
         RecipeIngredient(name: 'Lemon', amount: '1'),
       ],
-      instructions: [
-        'Shred and slice all the vegetables into a large bowl.',
-        'Rinse and drain the chickpeas, then add them in.',
-        'Dress with lemon juice, olive oil, salt and pepper.',
-        'Toss well and serve cold.',
+      steps: [
+        RecipeStep(
+          order: 1,
+          instruction: 'Shred and slice all the vegetables into a large bowl.',
+        ),
+        RecipeStep(
+          order: 2,
+          instruction: 'Rinse and drain the chickpeas, then add them in.',
+        ),
+        RecipeStep(
+          order: 3,
+          instruction: 'Dress with lemon juice, olive oil, salt and pepper.',
+        ),
+        RecipeStep(
+          order: 4,
+          instruction: 'Toss well and serve cold.',
+        ),
       ],
     ),
     const Recipe(
@@ -81,11 +113,30 @@ abstract class MockData {
         RecipeIngredient(name: 'Avocado', amount: '1', isMissing: true),
         RecipeIngredient(name: 'Lime', amount: '1'),
       ],
-      instructions: [
-        'Warm the beans with smoked paprika, cumin and a splash of water.',
-        'Mash lightly until thickened.',
-        'Char the tortillas over a flame or in a dry pan.',
-        'Fill with beans, sliced avocado and a squeeze of lime.',
+      steps: [
+        RecipeStep(
+          order: 1,
+          title: 'Warm the beans',
+          instruction:
+              'Warm the beans with smoked paprika, cumin and a splash of '
+              'water.',
+          timerSeconds: 300,
+        ),
+        RecipeStep(
+          order: 2,
+          instruction: 'Mash lightly until thickened.',
+        ),
+        RecipeStep(
+          order: 3,
+          title: 'Char tortillas',
+          instruction: 'Char the tortillas over a flame or in a dry pan.',
+          timerSeconds: 60,
+        ),
+        RecipeStep(
+          order: 4,
+          instruction:
+              'Fill with beans, sliced avocado and a squeeze of lime.',
+        ),
       ],
     ),
     const Recipe(
@@ -104,11 +155,29 @@ abstract class MockData {
         RecipeIngredient(name: 'Spinach', amount: '2 handfuls'),
         RecipeIngredient(name: 'Rice', amount: 'to serve'),
       ],
-      instructions: [
-        'Fry the curry paste until fragrant.',
-        'Add coconut milk and the cubed sweet potato; simmer until tender.',
-        'Stir through the spinach until just wilted.',
-        'Serve over steamed rice.',
+      steps: [
+        RecipeStep(
+          order: 1,
+          instruction: 'Fry the curry paste until fragrant.',
+          timerSeconds: 90,
+        ),
+        RecipeStep(
+          order: 2,
+          title: 'Simmer curry',
+          instruction:
+              'Add coconut milk and the cubed sweet potato; simmer until '
+              'tender.',
+          timerSeconds: 900,
+        ),
+        RecipeStep(
+          order: 3,
+          instruction: 'Stir through the spinach until just wilted.',
+          timerSeconds: 60,
+        ),
+        RecipeStep(
+          order: 4,
+          instruction: 'Serve over steamed rice.',
+        ),
       ],
     ),
     const Recipe(
@@ -124,11 +193,26 @@ abstract class MockData {
         RecipeIngredient(name: 'Oats', amount: '1 cup'),
         RecipeIngredient(name: 'Eggs', amount: '2'),
       ],
-      instructions: [
-        'Blend the banana, oats and eggs into a smooth batter.',
-        'Ladle onto a hot, lightly greased pan.',
-        'Flip when bubbles form and cook the other side.',
-        'Stack and top with fruit or syrup.',
+      steps: [
+        RecipeStep(
+          order: 1,
+          instruction:
+              'Blend the banana, oats and eggs into a smooth batter.',
+        ),
+        RecipeStep(
+          order: 2,
+          instruction: 'Ladle onto a hot, lightly greased pan.',
+        ),
+        RecipeStep(
+          order: 3,
+          title: 'Cook until bubbly',
+          instruction: 'Flip when bubbles form and cook the other side.',
+          timerSeconds: 180,
+        ),
+        RecipeStep(
+          order: 4,
+          instruction: 'Stack and top with fruit or syrup.',
+        ),
       ],
     ),
   ];

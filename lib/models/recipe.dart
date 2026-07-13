@@ -11,16 +11,16 @@ abstract class Recipe with _$Recipe {
 
   const factory Recipe({
     required String id,
-    required String title, 
-    required String description, 
-    
+    required String title,
+    required String description,
+
     required int prepTimeMinutes,
     required int cookTimeMinutes,
     required Difficulty difficulty,
-    
+
     required List<RecipeIngredient> ingredients,
-    required List<String> instructions,
-    
+    required List<RecipeStep> steps,
+
     String? imageUrl,
     @Default('gemini') String source, // 'gemini' or 'curated'
   }) = _Recipe;
@@ -29,7 +29,7 @@ abstract class Recipe with _$Recipe {
 
   int get totalTimeMinutes => prepTimeMinutes + cookTimeMinutes;
 
-  List<RecipeIngredient> get missingIngredients => 
+  List<RecipeIngredient> get missingIngredients =>
       ingredients.where((i) => i.isMissing).toList();
 
   bool get isExactMatch => missingIngredients.isEmpty;
@@ -39,10 +39,25 @@ abstract class Recipe with _$Recipe {
 abstract class RecipeIngredient with _$RecipeIngredient {
   const factory RecipeIngredient({
     required String name,
-    required String amount, 
-    
-    @Default(false) bool isMissing, 
+    required String amount,
+
+    @Default(false) bool isMissing,
   }) = _RecipeIngredient;
 
-  factory RecipeIngredient.fromJson(Map<String, dynamic> json) => _$RecipeIngredientFromJson(json);
+  factory RecipeIngredient.fromJson(Map<String, dynamic> json) =>
+      _$RecipeIngredientFromJson(json);
+}
+
+@freezed
+abstract class RecipeStep with _$RecipeStep {
+  const factory RecipeStep({
+    required int order, // 1-based step number, for display and reordering
+    required String instruction,
+
+    int? timerSeconds, // null if step has no wait/cook time
+    String? title, // optional short label, e.g. "Boil pasta"
+  }) = _RecipeStep;
+
+  factory RecipeStep.fromJson(Map<String, dynamic> json) =>
+      _$RecipeStepFromJson(json);
 }

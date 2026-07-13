@@ -154,7 +154,7 @@ class _Steps extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        for (var i = 0; i < recipe.instructions.length; i++)
+        for (final step in recipe.steps)
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
             child: NeoCard(
@@ -170,16 +170,47 @@ class _Steps extends StatelessWidget {
                       border: AppBorders.all,
                       borderRadius: AppRadii.pill,
                     ),
-                    child: Text('${i + 1}', style: AppText.bodyBold),
+                    child: Text('${step.order}', style: AppText.bodyBold),
                   ),
                   const SizedBox(width: 12),
                   Expanded(
-                      child: Text(recipe.instructions[i], style: AppText.body)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        if (step.title != null) ...[
+                          Text(step.title!, style: AppText.bodyBold),
+                          const SizedBox(height: 4),
+                        ],
+                        Text(step.instruction, style: AppText.body),
+                        if (step.timerSeconds != null) ...[
+                          const SizedBox(height: 8),
+                          Row(
+                            children: [
+                              const Icon(Icons.timer_outlined, size: 16),
+                              const SizedBox(width: 4),
+                              Text(
+                                _formatTimer(step.timerSeconds!),
+                                style: AppText.bodyBold,
+                              ),
+                            ],
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
       ],
     );
+  }
+
+  String _formatTimer(int seconds) {
+    final minutes = seconds ~/ 60;
+    final remaining = seconds % 60;
+    if (minutes == 0) return '${remaining}s';
+    if (remaining == 0) return '${minutes} min';
+    return '${minutes}m ${remaining}s';
   }
 }

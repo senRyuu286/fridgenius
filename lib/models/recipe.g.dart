@@ -16,8 +16,8 @@ _Recipe _$RecipeFromJson(Map<String, dynamic> json) => _Recipe(
   ingredients: (json['ingredients'] as List<dynamic>)
       .map((e) => RecipeIngredient.fromJson(e as Map<String, dynamic>))
       .toList(),
-  instructions: (json['instructions'] as List<dynamic>)
-      .map((e) => e as String)
+  steps: (json['steps'] as List<dynamic>)
+      .map((e) => RecipeStep.fromJson(e as Map<String, dynamic>))
       .toList(),
   imageUrl: json['imageUrl'] as String?,
   source: json['source'] as String? ?? 'gemini',
@@ -31,7 +31,7 @@ Map<String, dynamic> _$RecipeToJson(_Recipe instance) => <String, dynamic>{
   'cookTimeMinutes': instance.cookTimeMinutes,
   'difficulty': _$DifficultyEnumMap[instance.difficulty]!,
   'ingredients': instance.ingredients,
-  'instructions': instance.instructions,
+  'steps': instance.steps,
   'imageUrl': instance.imageUrl,
   'source': instance.source,
 };
@@ -54,4 +54,19 @@ Map<String, dynamic> _$RecipeIngredientToJson(_RecipeIngredient instance) =>
       'name': instance.name,
       'amount': instance.amount,
       'isMissing': instance.isMissing,
+    };
+
+_RecipeStep _$RecipeStepFromJson(Map<String, dynamic> json) => _RecipeStep(
+  order: (json['order'] as num).toInt(),
+  instruction: json['instruction'] as String,
+  timerSeconds: (json['timerSeconds'] as num?)?.toInt(),
+  title: json['title'] as String?,
+);
+
+Map<String, dynamic> _$RecipeStepToJson(_RecipeStep instance) =>
+    <String, dynamic>{
+      'order': instance.order,
+      'instruction': instance.instruction,
+      'timerSeconds': instance.timerSeconds,
+      'title': instance.title,
     };
