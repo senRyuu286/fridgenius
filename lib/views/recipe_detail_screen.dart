@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../utils/mock_data.dart';
-import '../../models/recipe.dart';
-import '../../theme/app_theme.dart';
-import '../../widgets/neo_widgets.dart';
-import '../../viewmodels/favorites_view_model.dart';
-import '../../viewmodels/recipe_detail_view_model.dart';
+import '../utils/mock_data.dart';
+import '../models/recipe.dart';
+import '../theme/app_theme.dart';
+import '../widgets/neo_widgets.dart';
+import '../viewmodels/favorites_view_model.dart';
+import '../viewmodels/recipe_detail_view_model.dart';
 
 /// Recipe detail: hero image, title, tags, ingredients, steps, favorite toggle.
 class RecipeDetailScreen extends ConsumerWidget {

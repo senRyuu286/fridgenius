@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-import '../../theme/app_theme.dart';
-import '../../widgets/neo_widgets.dart';
+import '../theme/app_theme.dart';
+import '../widgets/neo_widgets.dart';
 
 /// Phase 1 deliverable: a preview of the neo-brutalism theme + reusable widgets.
 /// Not part of the app flow — reachable at the /gallery route for review.

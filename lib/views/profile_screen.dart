@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../theme/app_theme.dart';
-import '../../widgets/neo_widgets.dart';
-import '../../viewmodels/profile_view_model.dart';
+import '../theme/app_theme.dart';
+import '../widgets/neo_widgets.dart';
+import '../viewmodels/profile_view_model.dart';
 
 /// Profile: avatar, name/email, editable-looking fields, settings, logout.
 class ProfileScreen extends ConsumerWidget {
