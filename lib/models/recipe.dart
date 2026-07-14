@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 part 'recipe.freezed.dart';
 part 'recipe.g.dart';
@@ -22,7 +23,13 @@ abstract class Recipe with _$Recipe {
     required List<RecipeStep> steps,
 
     String? imageUrl,
-    @Default('gemini') String source, // 'gemini' or 'curated'
+    @Default('gemini') String source, 
+    @Default('system') String createdBy,
+    @Default(false) bool isCurated,
+    @Default(true) bool isPublic,
+
+    @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
+    DateTime? createdAt,
   }) = _Recipe;
 
   factory Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
@@ -51,13 +58,24 @@ abstract class RecipeIngredient with _$RecipeIngredient {
 @freezed
 abstract class RecipeStep with _$RecipeStep {
   const factory RecipeStep({
-    required int order, // 1-based step number, for display and reordering
+    required int order,
     required String instruction,
 
-    int? timerSeconds, // null if step has no wait/cook time
-    String? title, // optional short label, e.g. "Boil pasta"
+    int? timerSeconds,
+    String? title,
   }) = _RecipeStep;
 
   factory RecipeStep.fromJson(Map<String, dynamic> json) =>
       _$RecipeStepFromJson(json);
+}
+
+DateTime? _dateTimeFromTimestamp(dynamic timestamp) {
+  if (timestamp == null) return null;
+  if (timestamp is Timestamp) return timestamp.toDate();
+  return null;
+}
+
+dynamic _dateTimeToTimestamp(DateTime? date) {
+  if (date == null) return null;
+  return Timestamp.fromDate(date);
 }

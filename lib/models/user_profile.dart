@@ -14,13 +14,15 @@ abstract class UserProfile with _$UserProfile {
 
     @Default([]) List<String> dietaryPreferences,
     @Default([]) List<String> allergies,
-
     @Default(false) bool isOnboarded,
+    @Default({}) Map<String, dynamic> dailyGenerationCap,
+
     @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)
     DateTime? createdAt,
   }) = _UserProfile;
 
-  factory UserProfile.fromJson(Map<String, dynamic> json) => _$UserProfileFromJson(json);
+  factory UserProfile.fromJson(Map<String, dynamic> json) =>
+      _$UserProfileFromJson(json);
 }
 
 DateTime? _dateTimeFromTimestamp(dynamic timestamp) {

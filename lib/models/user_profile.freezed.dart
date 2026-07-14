@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserProfile {
 
- String get id; String? get email; String? get displayName; String? get avatarUrl; List<String> get dietaryPreferences; List<String> get allergies; bool get isOnboarded;@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? get createdAt;
+ String get id; String? get email; String? get displayName; String? get avatarUrl; List<String> get dietaryPreferences; List<String> get allergies; bool get isOnboarded; Map<String, dynamic> get dailyGenerationCap;@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? get createdAt;
 /// Create a copy of UserProfile
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $UserProfileCopyWith<UserProfile> get copyWith => _$UserProfileCopyWithImpl<User
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserProfile&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&const DeepCollectionEquality().equals(other.dietaryPreferences, dietaryPreferences)&&const DeepCollectionEquality().equals(other.allergies, allergies)&&(identical(other.isOnboarded, isOnboarded) || other.isOnboarded == isOnboarded)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserProfile&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&const DeepCollectionEquality().equals(other.dietaryPreferences, dietaryPreferences)&&const DeepCollectionEquality().equals(other.allergies, allergies)&&(identical(other.isOnboarded, isOnboarded) || other.isOnboarded == isOnboarded)&&const DeepCollectionEquality().equals(other.dailyGenerationCap, dailyGenerationCap)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,email,displayName,avatarUrl,const DeepCollectionEquality().hash(dietaryPreferences),const DeepCollectionEquality().hash(allergies),isOnboarded,createdAt);
+int get hashCode => Object.hash(runtimeType,id,email,displayName,avatarUrl,const DeepCollectionEquality().hash(dietaryPreferences),const DeepCollectionEquality().hash(allergies),isOnboarded,const DeepCollectionEquality().hash(dailyGenerationCap),createdAt);
 
 @override
 String toString() {
-  return 'UserProfile(id: $id, email: $email, displayName: $displayName, avatarUrl: $avatarUrl, dietaryPreferences: $dietaryPreferences, allergies: $allergies, isOnboarded: $isOnboarded, createdAt: $createdAt)';
+  return 'UserProfile(id: $id, email: $email, displayName: $displayName, avatarUrl: $avatarUrl, dietaryPreferences: $dietaryPreferences, allergies: $allergies, isOnboarded: $isOnboarded, dailyGenerationCap: $dailyGenerationCap, createdAt: $createdAt)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $UserProfileCopyWith<$Res>  {
   factory $UserProfileCopyWith(UserProfile value, $Res Function(UserProfile) _then) = _$UserProfileCopyWithImpl;
 @useResult
 $Res call({
- String id, String? email, String? displayName, String? avatarUrl, List<String> dietaryPreferences, List<String> allergies, bool isOnboarded,@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? createdAt
+ String id, String? email, String? displayName, String? avatarUrl, List<String> dietaryPreferences, List<String> allergies, bool isOnboarded, Map<String, dynamic> dailyGenerationCap,@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? createdAt
 });
 
 
@@ -65,7 +65,7 @@ class _$UserProfileCopyWithImpl<$Res>
 
 /// Create a copy of UserProfile
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? avatarUrl = freezed,Object? dietaryPreferences = null,Object? allergies = null,Object? isOnboarded = null,Object? createdAt = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? avatarUrl = freezed,Object? dietaryPreferences = null,Object? allergies = null,Object? isOnboarded = null,Object? dailyGenerationCap = null,Object? createdAt = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -74,7 +74,8 @@ as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // igno
 as String?,dietaryPreferences: null == dietaryPreferences ? _self.dietaryPreferences : dietaryPreferences // ignore: cast_nullable_to_non_nullable
 as List<String>,allergies: null == allergies ? _self.allergies : allergies // ignore: cast_nullable_to_non_nullable
 as List<String>,isOnboarded: null == isOnboarded ? _self.isOnboarded : isOnboarded // ignore: cast_nullable_to_non_nullable
-as bool,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as bool,dailyGenerationCap: null == dailyGenerationCap ? _self.dailyGenerationCap : dailyGenerationCap // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }
@@ -160,10 +161,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  String? avatarUrl,  List<String> dietaryPreferences,  List<String> allergies,  bool isOnboarded, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  String? avatarUrl,  List<String> dietaryPreferences,  List<String> allergies,  bool isOnboarded,  Map<String, dynamic> dailyGenerationCap, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _UserProfile() when $default != null:
-return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.dietaryPreferences,_that.allergies,_that.isOnboarded,_that.createdAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.dietaryPreferences,_that.allergies,_that.isOnboarded,_that.dailyGenerationCap,_that.createdAt);case _:
   return orElse();
 
 }
@@ -181,10 +182,10 @@ return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.die
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  String? avatarUrl,  List<String> dietaryPreferences,  List<String> allergies,  bool isOnboarded, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String? email,  String? displayName,  String? avatarUrl,  List<String> dietaryPreferences,  List<String> allergies,  bool isOnboarded,  Map<String, dynamic> dailyGenerationCap, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _UserProfile():
-return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.dietaryPreferences,_that.allergies,_that.isOnboarded,_that.createdAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.dietaryPreferences,_that.allergies,_that.isOnboarded,_that.dailyGenerationCap,_that.createdAt);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -201,10 +202,10 @@ return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.die
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? email,  String? displayName,  String? avatarUrl,  List<String> dietaryPreferences,  List<String> allergies,  bool isOnboarded, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String? email,  String? displayName,  String? avatarUrl,  List<String> dietaryPreferences,  List<String> allergies,  bool isOnboarded,  Map<String, dynamic> dailyGenerationCap, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _UserProfile() when $default != null:
-return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.dietaryPreferences,_that.allergies,_that.isOnboarded,_that.createdAt);case _:
+return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.dietaryPreferences,_that.allergies,_that.isOnboarded,_that.dailyGenerationCap,_that.createdAt);case _:
   return null;
 
 }
@@ -216,7 +217,7 @@ return $default(_that.id,_that.email,_that.displayName,_that.avatarUrl,_that.die
 @JsonSerializable()
 
 class _UserProfile implements UserProfile {
-  const _UserProfile({required this.id, this.email, this.displayName, this.avatarUrl, final  List<String> dietaryPreferences = const [], final  List<String> allergies = const [], this.isOnboarded = false, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) this.createdAt}): _dietaryPreferences = dietaryPreferences,_allergies = allergies;
+  const _UserProfile({required this.id, this.email, this.displayName, this.avatarUrl, final  List<String> dietaryPreferences = const [], final  List<String> allergies = const [], this.isOnboarded = false, final  Map<String, dynamic> dailyGenerationCap = const {}, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) this.createdAt}): _dietaryPreferences = dietaryPreferences,_allergies = allergies,_dailyGenerationCap = dailyGenerationCap;
   factory _UserProfile.fromJson(Map<String, dynamic> json) => _$UserProfileFromJson(json);
 
 @override final  String id;
@@ -238,6 +239,13 @@ class _UserProfile implements UserProfile {
 }
 
 @override@JsonKey() final  bool isOnboarded;
+ final  Map<String, dynamic> _dailyGenerationCap;
+@override@JsonKey() Map<String, dynamic> get dailyGenerationCap {
+  if (_dailyGenerationCap is EqualUnmodifiableMapView) return _dailyGenerationCap;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(_dailyGenerationCap);
+}
+
 @override@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) final  DateTime? createdAt;
 
 /// Create a copy of UserProfile
@@ -253,16 +261,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserProfile&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&const DeepCollectionEquality().equals(other._dietaryPreferences, _dietaryPreferences)&&const DeepCollectionEquality().equals(other._allergies, _allergies)&&(identical(other.isOnboarded, isOnboarded) || other.isOnboarded == isOnboarded)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserProfile&&(identical(other.id, id) || other.id == id)&&(identical(other.email, email) || other.email == email)&&(identical(other.displayName, displayName) || other.displayName == displayName)&&(identical(other.avatarUrl, avatarUrl) || other.avatarUrl == avatarUrl)&&const DeepCollectionEquality().equals(other._dietaryPreferences, _dietaryPreferences)&&const DeepCollectionEquality().equals(other._allergies, _allergies)&&(identical(other.isOnboarded, isOnboarded) || other.isOnboarded == isOnboarded)&&const DeepCollectionEquality().equals(other._dailyGenerationCap, _dailyGenerationCap)&&(identical(other.createdAt, createdAt) || other.createdAt == createdAt));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,email,displayName,avatarUrl,const DeepCollectionEquality().hash(_dietaryPreferences),const DeepCollectionEquality().hash(_allergies),isOnboarded,createdAt);
+int get hashCode => Object.hash(runtimeType,id,email,displayName,avatarUrl,const DeepCollectionEquality().hash(_dietaryPreferences),const DeepCollectionEquality().hash(_allergies),isOnboarded,const DeepCollectionEquality().hash(_dailyGenerationCap),createdAt);
 
 @override
 String toString() {
-  return 'UserProfile(id: $id, email: $email, displayName: $displayName, avatarUrl: $avatarUrl, dietaryPreferences: $dietaryPreferences, allergies: $allergies, isOnboarded: $isOnboarded, createdAt: $createdAt)';
+  return 'UserProfile(id: $id, email: $email, displayName: $displayName, avatarUrl: $avatarUrl, dietaryPreferences: $dietaryPreferences, allergies: $allergies, isOnboarded: $isOnboarded, dailyGenerationCap: $dailyGenerationCap, createdAt: $createdAt)';
 }
 
 
@@ -273,7 +281,7 @@ abstract mixin class _$UserProfileCopyWith<$Res> implements $UserProfileCopyWith
   factory _$UserProfileCopyWith(_UserProfile value, $Res Function(_UserProfile) _then) = __$UserProfileCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? email, String? displayName, String? avatarUrl, List<String> dietaryPreferences, List<String> allergies, bool isOnboarded,@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? createdAt
+ String id, String? email, String? displayName, String? avatarUrl, List<String> dietaryPreferences, List<String> allergies, bool isOnboarded, Map<String, dynamic> dailyGenerationCap,@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? createdAt
 });
 
 
@@ -290,7 +298,7 @@ class __$UserProfileCopyWithImpl<$Res>
 
 /// Create a copy of UserProfile
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? avatarUrl = freezed,Object? dietaryPreferences = null,Object? allergies = null,Object? isOnboarded = null,Object? createdAt = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? email = freezed,Object? displayName = freezed,Object? avatarUrl = freezed,Object? dietaryPreferences = null,Object? allergies = null,Object? isOnboarded = null,Object? dailyGenerationCap = null,Object? createdAt = freezed,}) {
   return _then(_UserProfile(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,email: freezed == email ? _self.email : email // ignore: cast_nullable_to_non_nullable
@@ -299,7 +307,8 @@ as String?,avatarUrl: freezed == avatarUrl ? _self.avatarUrl : avatarUrl // igno
 as String?,dietaryPreferences: null == dietaryPreferences ? _self._dietaryPreferences : dietaryPreferences // ignore: cast_nullable_to_non_nullable
 as List<String>,allergies: null == allergies ? _self._allergies : allergies // ignore: cast_nullable_to_non_nullable
 as List<String>,isOnboarded: null == isOnboarded ? _self.isOnboarded : isOnboarded // ignore: cast_nullable_to_non_nullable
-as bool,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
+as bool,dailyGenerationCap: null == dailyGenerationCap ? _self._dailyGenerationCap : dailyGenerationCap // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>,createdAt: freezed == createdAt ? _self.createdAt : createdAt // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
 }

@@ -21,6 +21,10 @@ _Recipe _$RecipeFromJson(Map<String, dynamic> json) => _Recipe(
       .toList(),
   imageUrl: json['imageUrl'] as String?,
   source: json['source'] as String? ?? 'gemini',
+  createdBy: json['createdBy'] as String? ?? 'system',
+  isCurated: json['isCurated'] as bool? ?? false,
+  isPublic: json['isPublic'] as bool? ?? true,
+  createdAt: _dateTimeFromTimestamp(json['createdAt']),
 );
 
 Map<String, dynamic> _$RecipeToJson(_Recipe instance) => <String, dynamic>{
@@ -34,6 +38,10 @@ Map<String, dynamic> _$RecipeToJson(_Recipe instance) => <String, dynamic>{
   'steps': instance.steps,
   'imageUrl': instance.imageUrl,
   'source': instance.source,
+  'createdBy': instance.createdBy,
+  'isCurated': instance.isCurated,
+  'isPublic': instance.isPublic,
+  'createdAt': _dateTimeToTimestamp(instance.createdAt),
 };
 
 const _$DifficultyEnumMap = {

@@ -20,6 +20,8 @@ _UserProfile _$UserProfileFromJson(Map<String, dynamic> json) => _UserProfile(
       (json['allergies'] as List<dynamic>?)?.map((e) => e as String).toList() ??
       const [],
   isOnboarded: json['isOnboarded'] as bool? ?? false,
+  dailyGenerationCap:
+      json['dailyGenerationCap'] as Map<String, dynamic>? ?? const {},
   createdAt: _dateTimeFromTimestamp(json['createdAt']),
 );
 
@@ -32,5 +34,6 @@ Map<String, dynamic> _$UserProfileToJson(_UserProfile instance) =>
       'dietaryPreferences': instance.dietaryPreferences,
       'allergies': instance.allergies,
       'isOnboarded': instance.isOnboarded,
+      'dailyGenerationCap': instance.dailyGenerationCap,
       'createdAt': _dateTimeToTimestamp(instance.createdAt),
     };

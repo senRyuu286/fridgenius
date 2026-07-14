@@ -14,6 +14,10 @@ abstract class MockData {
     displayName: 'Alex Rivera',
     dietaryPreferences: const ['Vegetarian', 'High-Protein'],
     allergies: const ['Peanuts'],
+    dailyGenerationCap: {
+      'count': 2,
+      'lastGeneratedDate': DateTime.now().toIso8601String().split('T')[0],
+    },
     isOnboarded: true,
     createdAt: DateTime(2026, 1, 12),
   );
@@ -26,6 +30,9 @@ abstract class MockData {
           'A silky weeknight pasta built from pantry staples and whatever '
           'greens are wilting in the crisper.',
       prepTimeMinutes: 10,
+      createdBy: 'system',
+      isCurated: true,
+      isPublic: true,
       cookTimeMinutes: 15,
       difficulty: Difficulty.easy,
       ingredients: [
@@ -71,6 +78,9 @@ abstract class MockData {
           'whatever crunchy veg you have on hand.',
       prepTimeMinutes: 15,
       cookTimeMinutes: 0,
+      createdBy: 'system',
+      isCurated: true,
+      isPublic: true,
       difficulty: Difficulty.easy,
       ingredients: [
         RecipeIngredient(name: 'Carrot', amount: '1, shredded'),
@@ -105,6 +115,9 @@ abstract class MockData {
           'Ten-minute tacos with a smoky bean filling and a quick lime slaw.',
       prepTimeMinutes: 10,
       cookTimeMinutes: 10,
+      createdBy: 'system',
+      isCurated: true,
+      isPublic: true,
       difficulty: Difficulty.medium,
       ingredients: [
         RecipeIngredient(name: 'Black beans', amount: '1 can'),
@@ -147,6 +160,9 @@ abstract class MockData {
           'that tastes deliberate.',
       prepTimeMinutes: 15,
       cookTimeMinutes: 25,
+      createdBy: 'system',
+      isCurated: true,
+      isPublic: true,
       difficulty: Difficulty.medium,
       ingredients: [
         RecipeIngredient(name: 'Coconut milk', amount: '1 can'),
@@ -187,6 +203,9 @@ abstract class MockData {
           'Three-ingredient pancakes for when breakfast has to happen fast.',
       prepTimeMinutes: 5,
       cookTimeMinutes: 10,
+      createdBy: 'system',
+      isCurated: true,
+      isPublic: true,
       difficulty: Difficulty.easy,
       ingredients: [
         RecipeIngredient(name: 'Banana', amount: '2, ripe'),
