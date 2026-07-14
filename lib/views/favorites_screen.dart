@@ -18,7 +18,7 @@ class FavoritesScreen extends ConsumerWidget {
       body: DottedBackground(
         child: Column(
           children: [
-            const NeoHeader(title: 'Saved'),
+            const NeoHeader(title: 'Favorites'),
             Expanded(
               child: favorites.isEmpty
                   ? const _EmptyFavorites()
