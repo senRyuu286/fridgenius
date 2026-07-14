@@ -55,12 +55,20 @@ class SignUpScreen extends ConsumerWidget {
               NeoButton(
                 label: 'Create Account',
                 variant: NeoButtonVariant.secondary,
-                onPressed: () {
-                  if (vm.submit()) {
-                    context.go('/home');
+                onPressed: () async {
+                  if (await vm.submit()) {
+                    if (context.mounted) context.go('/home');
                   }
                 },
               ),
+              if (state.authError != null) ...[
+                const SizedBox(height: 12),
+                Text(
+                  state.authError!,
+                  textAlign: TextAlign.center,
+                  style: AppText.body.copyWith(color: AppColors.alert),
+                ),
+              ],
               const SizedBox(height: 24),
               _SignInLink(),
             ],

@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../utils/mock_data.dart';
 import '../widgets/neo_widgets.dart';
 import '../viewmodels/home_view_model.dart';
+import '../viewmodels/profile_view_model.dart';
 
 /// Home tab: browse all recipes as a colorful 2-column grid of tiles.
 class HomeScreen extends ConsumerWidget {
@@ -13,7 +13,8 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final recipes = ref.watch(allRecipesProvider);
-    final initial = (MockData.user.displayName ?? 'F').characters.first;
+    final user = ref.watch(profileProvider);
+    final initial = (user.displayName ?? 'F').characters.first;
 
     return Scaffold(
       body: DottedBackground(

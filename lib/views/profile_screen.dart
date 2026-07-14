@@ -79,9 +79,9 @@ class ProfileScreen extends ConsumerWidget {
                     label: 'Log Out',
                     icon: Icons.logout,
                     variant: NeoButtonVariant.light,
-                    onPressed: () {
-                      ref.read(profileProvider.notifier).logout();
-                      context.go('/signin');
+                    onPressed: () async {
+                      await ref.read(profileProvider.notifier).logout();
+                      if (context.mounted) context.go('/signin');
                     },
                   ),
                   const SizedBox(height: 40),
