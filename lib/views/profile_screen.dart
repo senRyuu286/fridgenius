@@ -12,14 +12,7 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(profileProvider);
-    final initials = (user.displayName ?? 'F')
-        .trim()
-        .split(RegExp(r'\s+'))
-        .map((w) => w.isEmpty ? '' : w[0])
-        .take(2)
-        .join()
-        .toUpperCase();
+    final userAsync = ref.watch(profileProvider);
 
     return Scaffold(
       body: DottedBackground(
@@ -27,10 +20,24 @@ class ProfileScreen extends ConsumerWidget {
           children: [
             const NeoHeader(title: 'Profile'),
             Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(20),
-                children: [
-                  Center(
+              child: userAsync.when(
+                loading: () => const AsyncLoadingView(),
+                error: (e, _) => AsyncErrorView(
+                  message: 'We couldn\'t load your profile.',
+                  onRetry: () => ref.invalidate(profileProvider),
+                ),
+                data: (user) {
+                  final initials = (user.displayName ?? 'F')
+                      .trim()
+                      .split(RegExp(r'\s+'))
+                      .map((w) => w.isEmpty ? '' : w[0])
+                      .take(2)
+                      .join()
+                      .toUpperCase();
+                  return ListView(
+                    padding: const EdgeInsets.all(20),
+                    children: [
+                      Center(
                     child: Container(
                       width: 96,
                       height: 96,
@@ -84,8 +91,10 @@ class ProfileScreen extends ConsumerWidget {
                       if (context.mounted) context.go('/signin');
                     },
                   ),
-                  const SizedBox(height: 40),
-                ],
+                      const SizedBox(height: 40),
+                    ],
+                  );
+                },
               ),
             ),
           ],

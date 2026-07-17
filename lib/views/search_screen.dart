@@ -4,6 +4,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../theme/app_theme.dart';
 import '../widgets/neo_widgets.dart';
+import '../viewmodels/home_view_model.dart';
 import '../viewmodels/search_view_model.dart';
 
 /// Search tab: filter recipes by name or ingredient, shown as a grid.
@@ -30,26 +31,33 @@ class SearchScreen extends ConsumerWidget {
               ),
             ),
             Expanded(
-              child: results.isEmpty
-                  ? _NoResults(query: query)
-                  : GridView.builder(
-                      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                        childAspectRatio: 0.80,
+              child: results.when(
+                loading: () => const AsyncLoadingView(),
+                error: (e, _) => AsyncErrorView(
+                  message: 'We couldn\'t load recipes to search.',
+                  onRetry: () => ref.invalidate(allRecipesProvider),
+                ),
+                data: (recipes) => recipes.isEmpty
+                    ? _NoResults(query: query)
+                    : GridView.builder(
+                        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          childAspectRatio: 0.80,
+                        ),
+                        itemCount: recipes.length,
+                        itemBuilder: (context, i) {
+                          final recipe = recipes[i];
+                          return RecipeTile(
+                            recipe: recipe,
+                            onTap: () => context.push('/recipe/${recipe.id}'),
+                          );
+                        },
                       ),
-                      itemCount: results.length,
-                      itemBuilder: (context, i) {
-                        final recipe = results[i];
-                        return RecipeTile(
-                          recipe: recipe,
-                          onTap: () => context.push('/recipe/${recipe.id}'),
-                        );
-                      },
-                    ),
+              ),
             ),
           ],
         ),

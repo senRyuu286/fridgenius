@@ -1,11 +1,12 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../utils/mock_data.dart';
 import '../models/recipe.dart';
+import '../repositories/recipe_repository.dart';
 
-/// ViewModel for the Home tab: the full catalogue of browsable recipes.
+/// ViewModel for the Home tab: the curated recipe library from Firestore.
 ///
-/// TODO(backend): replace the static mock list with the curated / community
-/// recipe feed from Firestore.
-final allRecipesProvider =
-    Provider<List<Recipe>>((ref) => MockData.recipes);
+/// Exposes an [AsyncValue] so the screen can drive its own loading / error /
+/// empty states.
+final allRecipesProvider = FutureProvider<List<Recipe>>((ref) async {
+  return ref.watch(recipeRepositoryProvider).fetchCuratedRecipes();
+});

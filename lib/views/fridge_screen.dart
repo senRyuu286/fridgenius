@@ -63,6 +63,13 @@ class _FridgeScreenState extends ConsumerState<FridgeScreen> {
                     variant: NeoButtonVariant.secondary,
                     onPressed: canAdd ? _add : null,
                   ),
+                  const SizedBox(height: 12),
+                  NeoButton(
+                    label: 'Scan with Camera',
+                    icon: Icons.camera_alt,
+                    variant: NeoButtonVariant.light,
+                    onPressed: () => context.push('/scan'),
+                  ),
                   const SizedBox(height: 28),
                   Text('Your ingredients', style: AppText.heading),
                   const SizedBox(height: 12),

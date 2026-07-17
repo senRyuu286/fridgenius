@@ -1,37 +1,37 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../utils/mock_data.dart';
 import '../models/user_profile.dart';
+import '../repositories/user_profile_repository.dart';
 import 'auth_view_model.dart';
 
-/// ViewModel for the profile screen. Builds from the live Firebase user,
-/// falling back to mock data for fields Firebase Auth doesn't provide
-/// (dietary preferences, allergies, onboarding flag — no Firestore user
-/// doc yet).
-class ProfileViewModel extends Notifier<UserProfile> {
+/// ViewModel for the profile screen. Builds from the live Firebase user, then
+/// enriches it with the stored Firestore profile (dietary preferences,
+/// allergies, onboarding flag). Exposes an [AsyncValue] so the screen can drive
+/// its own loading / error states.
+class ProfileViewModel extends AsyncNotifier<UserProfile> {
   @override
-  UserProfile build() {
+  Future<UserProfile> build() async {
     // Rebuild whenever auth state changes (sign in/out) so this stays in sync.
-    final authState = ref.watch(authStateProvider);
-    final user = authState.value;
-
+    final user = ref.watch(authStateProvider).value;
     if (user == null) {
-      // Signed out — fall back to mock data rather than crash the screen.
-      // Shouldn't normally be visible since logout() also redirects away.
-      return MockData.user;
+      // Signed out — a minimal placeholder. logout() also redirects away, so
+      // this shouldn't normally be visible.
+      return const UserProfile(id: 'anonymous');
     }
+
+    final stored =
+        await ref.read(userProfileRepositoryProvider).fetchProfile(user.uid);
 
     return UserProfile(
       id: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      avatarUrl: user.photoURL,
-      // TODO(backend): source from Firestore once a user-profile doc exists.
-      dietaryPreferences: MockData.user.dietaryPreferences,
-      allergies: MockData.user.allergies,
-      isOnboarded: true,
-      createdAt: user.metadata.creationTime,
+      email: user.email ?? stored?.email,
+      displayName: user.displayName ?? stored?.displayName,
+      avatarUrl: user.photoURL ?? stored?.avatarUrl,
+      dietaryPreferences: stored?.dietaryPreferences ?? const [],
+      allergies: stored?.allergies ?? const [],
+      dailyGenerationCap: stored?.dailyGenerationCap ?? const {},
+      isOnboarded: stored?.isOnboarded ?? true,
+      createdAt: stored?.createdAt ?? user.metadata.creationTime,
     );
   }
 
@@ -41,4 +41,4 @@ class ProfileViewModel extends Notifier<UserProfile> {
 }
 
 final profileProvider =
-    NotifierProvider<ProfileViewModel, UserProfile>(ProfileViewModel.new);
+    AsyncNotifierProvider<ProfileViewModel, UserProfile>(ProfileViewModel.new);

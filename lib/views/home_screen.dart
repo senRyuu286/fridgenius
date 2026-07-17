@@ -12,9 +12,9 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recipes = ref.watch(allRecipesProvider);
-    final user = ref.watch(profileProvider);
-    final initial = (user.displayName ?? 'F').characters.first;
+    final recipesAsync = ref.watch(allRecipesProvider);
+    final name = (ref.watch(profileProvider).value?.displayName ?? '').trim();
+    final initial = name.isEmpty ? 'F' : name.characters.first;
 
     return Scaffold(
       body: DottedBackground(
@@ -29,21 +29,39 @@ class HomeScreen extends ConsumerWidget {
               ),
             ),
             Expanded(
-              child: GridView.builder(
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-                gridDelegate:
-                    const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 16,
-                  crossAxisSpacing: 16,
-                  childAspectRatio: 0.80,
+              child: recipesAsync.when(
+                loading: () => const AsyncLoadingView(),
+                error: (e, _) => AsyncErrorView(
+                  message: 'We couldn\'t load your recipes.',
+                  onRetry: () => ref.invalidate(allRecipesProvider),
                 ),
-                itemCount: recipes.length,
-                itemBuilder: (context, i) {
-                  final recipe = recipes[i];
-                  return RecipeTile(
-                    recipe: recipe,
-                    onTap: () => context.push('/recipe/${recipe.id}'),
+                data: (recipes) {
+                  if (recipes.isEmpty) {
+                    return const AsyncEmptyView(
+                      emoji: '🍽️',
+                      title: 'NO RECIPES YET',
+                      message:
+                          'Curated recipes will show up here. Cook from your '
+                          'fridge to get started.',
+                    );
+                  }
+                  return GridView.builder(
+                    padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 16,
+                      crossAxisSpacing: 16,
+                      childAspectRatio: 0.80,
+                    ),
+                    itemCount: recipes.length,
+                    itemBuilder: (context, i) {
+                      final recipe = recipes[i];
+                      return RecipeTile(
+                        recipe: recipe,
+                        onTap: () => context.push('/recipe/${recipe.id}'),
+                      );
+                    },
                   );
                 },
               ),

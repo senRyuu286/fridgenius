@@ -12,7 +12,7 @@ class FavoritesScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final favorites = ref.watch(favoritesProvider);
+    final favoritesAsync = ref.watch(favoritesProvider);
 
     return Scaffold(
       body: DottedBackground(
@@ -20,26 +20,33 @@ class FavoritesScreen extends ConsumerWidget {
           children: [
             const NeoHeader(title: 'Favorites'),
             Expanded(
-              child: favorites.isEmpty
-                  ? const _EmptyFavorites()
-                  : GridView.builder(
-                      padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                        childAspectRatio: 0.80,
+              child: favoritesAsync.when(
+                loading: () => const AsyncLoadingView(),
+                error: (e, _) => AsyncErrorView(
+                  message: 'We couldn\'t load your saved recipes.',
+                  onRetry: () => ref.invalidate(favoritesProvider),
+                ),
+                data: (favorites) => favorites.isEmpty
+                    ? const _EmptyFavorites()
+                    : GridView.builder(
+                        padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 16,
+                          crossAxisSpacing: 16,
+                          childAspectRatio: 0.80,
+                        ),
+                        itemCount: favorites.length,
+                        itemBuilder: (context, i) {
+                          final recipe = favorites[i];
+                          return RecipeTile(
+                            recipe: recipe,
+                            onTap: () => context.push('/recipe/${recipe.id}'),
+                          );
+                        },
                       ),
-                      itemCount: favorites.length,
-                      itemBuilder: (context, i) {
-                        final recipe = favorites[i];
-                        return RecipeTile(
-                          recipe: recipe,
-                          onTap: () => context.push('/recipe/${recipe.id}'),
-                        );
-                      },
-                    ),
+              ),
             ),
           ],
         ),

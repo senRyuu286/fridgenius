@@ -9,6 +9,7 @@ import '../views/gallery_screen.dart';
 import '../views/home_screen.dart';
 import '../views/onboarding_screen.dart';
 import '../views/profile_screen.dart';
+import '../views/camera_scan_screen.dart';
 import '../views/recipe_detail_screen.dart';
 import '../views/results_screen.dart';
 import '../views/search_screen.dart';
@@ -74,6 +75,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
 
       // Full-screen routes that cover the bottom nav bar.
+      GoRoute(
+        path: '/scan',
+        builder: (context, state) => const CameraScanScreen(),
+      ),
       GoRoute(
         path: '/results',
         builder: (context, state) => const RecipeResultsScreen(),

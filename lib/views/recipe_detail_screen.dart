@@ -17,63 +17,88 @@ class RecipeDetailScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final recipe = ref.watch(recipeDetailProvider(recipeId));
-    final isFavorite = ref.watch(
-        favoritesProvider.select((list) => list.any((r) => r.id == recipeId)));
+    final recipeAsync = ref.watch(recipeDetailProvider(recipeId));
+    final isFavorite = ref.watch(favoritesProvider).value?.any(
+              (r) => r.id == recipeId,
+            ) ??
+        false;
 
     return Scaffold(
       body: DottedBackground(
-        child: Column(
-          children: [
-            NeoHeader(
-              title: recipe.title,
-              onBack: () => _back(context),
-              trailing: NeoSquareButton(
-                icon: isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: isFavorite ? AppColors.coral : AppColors.white,
-                onTap: () =>
-                    ref.read(favoritesProvider.notifier).toggle(recipe),
+        child: recipeAsync.when(
+          loading: () => Column(
+            children: [
+              NeoHeader(title: 'Recipe', onBack: () => _back(context)),
+              const Expanded(child: AsyncLoadingView()),
+            ],
+          ),
+          error: (e, _) => Column(
+            children: [
+              NeoHeader(title: 'Recipe', onBack: () => _back(context)),
+              Expanded(
+                child: AsyncErrorView(
+                  message: 'We couldn\'t load this recipe.',
+                  onRetry: () =>
+                      ref.invalidate(recipeDetailProvider(recipeId)),
+                ),
               ),
-            ),
-            Expanded(
-              child: ListView(
-                padding: const EdgeInsets.all(20),
-                children: [
-                  NeoCard(
-                    padding: EdgeInsets.zero,
-                    child: RecipeImageBlock(
-                        recipe: recipe, height: 200, rounded: true),
-                  ),
-                  const SizedBox(height: 16),
-                  Text(recipe.description, style: AppText.body),
-                  const SizedBox(height: 16),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final tag in MockData.tagsOf(recipe))
-                        NeoPill(label: tag),
-                    ],
-                  ),
-                  const SizedBox(height: 24),
-                  _Section(title: 'Ingredients', child: _Ingredients(recipe)),
-                  const SizedBox(height: 20),
-                  _Section(title: 'Steps', child: _Steps(recipe)),
-                  const SizedBox(height: 24),
-                  NeoButton(
-                    label: isFavorite ? 'Saved to Favorites' : 'Save Recipe',
-                    icon: isFavorite ? Icons.favorite : Icons.favorite_border,
-                    variant: isFavorite
-                        ? NeoButtonVariant.secondary
-                        : NeoButtonVariant.primary,
-                    onPressed: () =>
-                        ref.read(favoritesProvider.notifier).toggle(recipe),
-                  ),
-                  const SizedBox(height: 40),
-                ],
+            ],
+          ),
+          data: (recipe) => Column(
+            children: [
+              NeoHeader(
+                title: recipe.title,
+                onBack: () => _back(context),
+                trailing: NeoSquareButton(
+                  icon: isFavorite ? Icons.favorite : Icons.favorite_border,
+                  color: isFavorite ? AppColors.coral : AppColors.white,
+                  onTap: () =>
+                      ref.read(favoritesProvider.notifier).toggle(recipe),
+                ),
               ),
-            ),
-          ],
+              Expanded(
+                child: ListView(
+                  padding: const EdgeInsets.all(20),
+                  children: [
+                    NeoCard(
+                      padding: EdgeInsets.zero,
+                      child: RecipeImageBlock(
+                          recipe: recipe, height: 200, rounded: true),
+                    ),
+                    const SizedBox(height: 16),
+                    Text(recipe.description, style: AppText.body),
+                    const SizedBox(height: 16),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      children: [
+                        for (final tag in MockData.tagsOf(recipe))
+                          NeoPill(label: tag),
+                      ],
+                    ),
+                    const SizedBox(height: 24),
+                    _Section(
+                        title: 'Ingredients', child: _Ingredients(recipe)),
+                    const SizedBox(height: 20),
+                    _Section(title: 'Steps', child: _Steps(recipe)),
+                    const SizedBox(height: 24),
+                    NeoButton(
+                      label:
+                          isFavorite ? 'Saved to Favorites' : 'Save Recipe',
+                      icon:
+                          isFavorite ? Icons.favorite : Icons.favorite_border,
+                      variant: isFavorite
+                          ? NeoButtonVariant.secondary
+                          : NeoButtonVariant.primary,
+                      onPressed: () =>
+                          ref.read(favoritesProvider.notifier).toggle(recipe),
+                    ),
+                    const SizedBox(height: 40),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -210,7 +235,7 @@ class _Steps extends StatelessWidget {
     final minutes = seconds ~/ 60;
     final remaining = seconds % 60;
     if (minutes == 0) return '${remaining}s';
-    if (remaining == 0) return '${minutes} min';
+    if (remaining == 0) return '$minutes min';
     return '${minutes}m ${remaining}s';
   }
 }

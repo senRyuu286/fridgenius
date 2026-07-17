@@ -5,8 +5,8 @@ import '../models/ingredient.dart';
 /// ViewModel for the Fridge tab: the list of ingredients the user has on hand,
 /// with add / remove / clear actions.
 ///
-/// TODO(backend): this list will feed the Gemini recipe request. For the
-/// UI-build phase it is pure in-memory state seeded with a couple of examples.
+/// This list feeds the Gemini recipe request (see [rankedRecipesProvider]). It
+/// is seeded with a couple of examples so the fridge isn't empty on first open.
 class IngredientListViewModel extends Notifier<List<Ingredient>> {
   @override
   List<Ingredient> build() => const [
