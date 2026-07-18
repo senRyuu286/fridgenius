@@ -90,7 +90,7 @@ class FirebaseGeminiService implements GeminiService {
 
   static GenerativeModel _defaultModel() {
     return FirebaseAI.googleAI().generativeModel(
-      model: 'gemini-2.5-flash',
+      model: 'gemini-3.5-flash',
       systemInstruction: Content.system('''
             You are an expert culinary assistant for the Fridgenius! app. Your job is to turn the user's list of random kitchen ingredients into a cooked meal. You must return exactly 3 to 5 recipe suggestions based on the provided ingredients.
 

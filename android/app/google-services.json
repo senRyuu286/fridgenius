@@ -12,7 +12,20 @@
           "package_name": "com.example.fridgenius"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "993227278999-49acmu5kv24rd34orirbeiqtsnsioj78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.fridgenius",
+            "certificate_hash": "f5e12bffec45419a2e360dbcf541b16d4a90af76"
+          }
+        },
+        {
+          "client_id": "993227278999-gua1tb6mioi2vnl14rjku2cimomftlu2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyA-WmtqBzia723wkV58wBG3O1eMIyA7nug"
@@ -20,7 +33,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "993227278999-gua1tb6mioi2vnl14rjku2cimomftlu2.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "993227278999-ct8sb3pe2vi0b51rq1nsaffujcq0cu9u.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.fridgenius"
+              }
+            }
+          ]
         }
       }
     }
