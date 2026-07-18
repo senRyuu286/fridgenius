@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../theme/app_theme.dart';
 import '../widgets/neo_widgets.dart';
+import '../services/preferences_service.dart';
 import '../viewmodels/sign_in_view_model.dart';
 
 /// Sign In: email + password, Sign In CTA, link to Sign Up. Mock validation.
@@ -14,6 +16,7 @@ class SignInScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(signInProvider);
     final vm = ref.read(signInProvider.notifier);
+    final isReturning = ref.watch(returningUserProvider);
 
     return Scaffold(
       body: DottedBackground(
@@ -21,10 +24,27 @@ class SignInScreen extends ConsumerWidget {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(24, 40, 24, 24),
             children: [
-              Text('Welcome back', style: AppText.display),
+              Center(
+                child: SvgPicture.asset(
+                  'assets/fridgenius_icon.svg',
+                  width: 96,
+                  height: 96,
+                ),
+              ),
+              const SizedBox(height: 24),
+              Text(
+                isReturning
+                    ? 'Welcome back'
+                    : 'Welcome to your Smart Fridge App',
+                style: AppText.display,
+              ),
               const SizedBox(height: 8),
-              Text('Sign in to keep cooking with what you have.',
-                  style: AppText.body),
+              Text(
+                isReturning
+                    ? 'Sign in to keep cooking with what you have.'
+                    : 'Sign in to start cooking with what you have.',
+                style: AppText.body,
+              ),
               const SizedBox(height: 32),
               NeoTextField(
                 label: 'Email',

@@ -27,8 +27,8 @@ class SignUpScreen extends ConsumerWidget {
                   style: AppText.body),
               const SizedBox(height: 32),
               NeoTextField(
-                label: 'Name',
-                hint: 'Alex Rivera',
+                label: 'Username',
+                hint: 'Enter Username',
                 prefixIcon: Icons.person_outline,
                 errorText: state.nameError,
                 onChanged: vm.setName,

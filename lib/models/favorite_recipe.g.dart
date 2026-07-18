@@ -18,6 +18,6 @@ Map<String, dynamic> _$FavoriteRecipeToJson(_FavoriteRecipe instance) =>
     <String, dynamic>{
       'id': instance.id,
       'userId': instance.userId,
-      'recipe': instance.recipe,
+      'recipe': instance.recipe.toJson(),
       'savedAt': _dateTimeToTimestamp(instance.savedAt),
     };

@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Signed-in check reused across rules.
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    // A user's own profile document. Created on sign-up, updated during
+    // onboarding (dietary prefs, allergies, generation caps, …).
+    match /users/{userId} {
+      allow read, write: if isSignedIn() && request.auth.uid == userId;
+
+      // Saved/favorited recipes live under the owning user.
+      match /favorites/{recipeId} {
+        allow read, write: if isSignedIn() && request.auth.uid == userId;
+      }
+    }
+
+    // Shared recipe catalog: seeded data + recipes the app generates.
+    // Readable by any signed-in user; writable by signed-in users since
+    // generation happens client-side.
+    match /recipes/{recipeId} {
+      allow read: if isSignedIn();
+      allow write: if isSignedIn();
+    }
+
+    // Gemini response cache keyed by request hash. Read/write for any
+    // signed-in user so cache hits are shared across the app.
+    match /gemini_caches/{hash} {
+      allow read, write: if isSignedIn();
+    }
+  }
+}

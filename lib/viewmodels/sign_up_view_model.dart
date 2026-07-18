@@ -55,7 +55,7 @@ class SignUpViewModel extends Notifier<SignUpState> {
 
   Future<bool> submit() async {
     final nameError =
-        state.name.trim().isNotEmpty ? null : 'Please enter your name';
+        state.name.trim().isNotEmpty ? null : 'Please enter a username';
     final emailError =
         state.email.contains('@') ? null : 'Enter a valid email address';
     final passwordError =

@@ -38,7 +38,9 @@ class SearchScreen extends ConsumerWidget {
                   onRetry: () => ref.invalidate(allRecipesProvider),
                 ),
                 data: (recipes) => recipes.isEmpty
-                    ? _NoResults(query: query)
+                    ? (query.trim().isEmpty
+                        ? const _SearchPrompt()
+                        : _NoResults(query: query))
                     : GridView.builder(
                         padding: const EdgeInsets.fromLTRB(20, 12, 20, 20),
                         gridDelegate:
@@ -60,6 +62,36 @@ class SearchScreen extends ConsumerWidget {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Shown on first access, before the user has typed a query.
+class _SearchPrompt extends StatelessWidget {
+  const _SearchPrompt();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(28),
+        child: NeoCard(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text('🔍', style: TextStyle(fontSize: 44)),
+              const SizedBox(height: 16),
+              Text('SEARCH RECIPES', style: AppText.title),
+              const SizedBox(height: 8),
+              Text(
+                'Type an ingredient or dish above to find recipes.',
+                style: AppText.body,
+                textAlign: TextAlign.center,
+              ),
+            ],
+          ),
         ),
       ),
     );

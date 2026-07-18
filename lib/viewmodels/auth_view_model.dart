@@ -1,6 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
+import '../models/user_profile.dart';
+import '../repositories/user_profile_repository.dart';
+import '../services/preferences_service.dart';
+
 /// Streams the current Firebase auth state. Use this to react to sign-in /
 /// sign-out from anywhere in the app (e.g. router redirects, profile screen).
 final authStateProvider = StreamProvider<User?>((ref) {
@@ -26,6 +30,7 @@ class AuthViewModel extends Notifier<AsyncValue<void>> {
         email: email,
         password: password,
       );
+      await ref.read(returningUserProvider.notifier).markSignedIn();
       state = const AsyncData(null);
       return null;
     } on FirebaseAuthException catch (e, st) {
@@ -44,7 +49,22 @@ class AuthViewModel extends Notifier<AsyncValue<void>> {
     try {
       final credential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
-      await credential.user?.updateDisplayName(name);
+      final user = credential.user;
+      await user?.updateDisplayName(name);
+
+      // Mirror the new account into Firestore so the rest of the app has a
+      // profile document to read/write (dietary prefs, allergies, …).
+      if (user != null) {
+        await ref.read(userProfileRepositoryProvider).createProfileIfMissing(
+              UserProfile(
+                id: user.uid,
+                email: email,
+                displayName: name,
+              ),
+            );
+      }
+
+      await ref.read(returningUserProvider.notifier).markSignedIn();
       state = const AsyncData(null);
       return null;
     } on FirebaseAuthException catch (e, st) {

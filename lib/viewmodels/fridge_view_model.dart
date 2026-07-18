@@ -5,14 +5,11 @@ import '../models/ingredient.dart';
 /// ViewModel for the Fridge tab: the list of ingredients the user has on hand,
 /// with add / remove / clear actions.
 ///
-/// This list feeds the Gemini recipe request (see [rankedRecipesProvider]). It
-/// is seeded with a couple of examples so the fridge isn't empty on first open.
+/// This list feeds the Gemini recipe request (see [rankedRecipesProvider]).
+/// It starts empty so the user builds their fridge from scratch.
 class IngredientListViewModel extends Notifier<List<Ingredient>> {
   @override
-  List<Ingredient> build() => const [
-        Ingredient(id: 'seed-eggs', name: 'Eggs'),
-        Ingredient(id: 'seed-spinach', name: 'Spinach'),
-      ];
+  List<Ingredient> build() => const [];
 
   /// Adds a trimmed ingredient, ignoring blanks and case-insensitive dupes.
   void add(String name) {

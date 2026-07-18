@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Recipe {
 
- String get id; String get title; String get description; int get prepTimeMinutes; int get cookTimeMinutes; Difficulty get difficulty; List<RecipeIngredient> get ingredients; List<RecipeStep> get steps; String? get imageUrl; String get source; String get createdBy; bool get isCurated; bool get isPublic;@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? get createdAt;
+ String get id; String get title; String get description; int get prepTimeMinutes; int get cookTimeMinutes;@JsonKey(unknownEnumValue: Difficulty.easy) Difficulty get difficulty; List<RecipeIngredient> get ingredients; List<RecipeStep> get steps; String? get imageUrl; String get source; String get createdBy; bool get isCurated; bool get isPublic;@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? get createdAt;
 /// Create a copy of Recipe
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $RecipeCopyWith<$Res>  {
   factory $RecipeCopyWith(Recipe value, $Res Function(Recipe) _then) = _$RecipeCopyWithImpl;
 @useResult
 $Res call({
- String id, String title, String description, int prepTimeMinutes, int cookTimeMinutes, Difficulty difficulty, List<RecipeIngredient> ingredients, List<RecipeStep> steps, String? imageUrl, String source, String createdBy, bool isCurated, bool isPublic,@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? createdAt
+ String id, String title, String description, int prepTimeMinutes, int cookTimeMinutes,@JsonKey(unknownEnumValue: Difficulty.easy) Difficulty difficulty, List<RecipeIngredient> ingredients, List<RecipeStep> steps, String? imageUrl, String source, String createdBy, bool isCurated, bool isPublic,@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? createdAt
 });
 
 
@@ -166,7 +166,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String description,  int prepTimeMinutes,  int cookTimeMinutes,  Difficulty difficulty,  List<RecipeIngredient> ingredients,  List<RecipeStep> steps,  String? imageUrl,  String source,  String createdBy,  bool isCurated,  bool isPublic, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String id,  String title,  String description,  int prepTimeMinutes,  int cookTimeMinutes, @JsonKey(unknownEnumValue: Difficulty.easy)  Difficulty difficulty,  List<RecipeIngredient> ingredients,  List<RecipeStep> steps,  String? imageUrl,  String source,  String createdBy,  bool isCurated,  bool isPublic, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Recipe() when $default != null:
 return $default(_that.id,_that.title,_that.description,_that.prepTimeMinutes,_that.cookTimeMinutes,_that.difficulty,_that.ingredients,_that.steps,_that.imageUrl,_that.source,_that.createdBy,_that.isCurated,_that.isPublic,_that.createdAt);case _:
@@ -187,7 +187,7 @@ return $default(_that.id,_that.title,_that.description,_that.prepTimeMinutes,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String description,  int prepTimeMinutes,  int cookTimeMinutes,  Difficulty difficulty,  List<RecipeIngredient> ingredients,  List<RecipeStep> steps,  String? imageUrl,  String source,  String createdBy,  bool isCurated,  bool isPublic, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String id,  String title,  String description,  int prepTimeMinutes,  int cookTimeMinutes, @JsonKey(unknownEnumValue: Difficulty.easy)  Difficulty difficulty,  List<RecipeIngredient> ingredients,  List<RecipeStep> steps,  String? imageUrl,  String source,  String createdBy,  bool isCurated,  bool isPublic, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)  $default,) {final _that = this;
 switch (_that) {
 case _Recipe():
 return $default(_that.id,_that.title,_that.description,_that.prepTimeMinutes,_that.cookTimeMinutes,_that.difficulty,_that.ingredients,_that.steps,_that.imageUrl,_that.source,_that.createdBy,_that.isCurated,_that.isPublic,_that.createdAt);case _:
@@ -207,7 +207,7 @@ return $default(_that.id,_that.title,_that.description,_that.prepTimeMinutes,_th
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String description,  int prepTimeMinutes,  int cookTimeMinutes,  Difficulty difficulty,  List<RecipeIngredient> ingredients,  List<RecipeStep> steps,  String? imageUrl,  String source,  String createdBy,  bool isCurated,  bool isPublic, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String id,  String title,  String description,  int prepTimeMinutes,  int cookTimeMinutes, @JsonKey(unknownEnumValue: Difficulty.easy)  Difficulty difficulty,  List<RecipeIngredient> ingredients,  List<RecipeStep> steps,  String? imageUrl,  String source,  String createdBy,  bool isCurated,  bool isPublic, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp)  DateTime? createdAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Recipe() when $default != null:
 return $default(_that.id,_that.title,_that.description,_that.prepTimeMinutes,_that.cookTimeMinutes,_that.difficulty,_that.ingredients,_that.steps,_that.imageUrl,_that.source,_that.createdBy,_that.isCurated,_that.isPublic,_that.createdAt);case _:
@@ -222,15 +222,15 @@ return $default(_that.id,_that.title,_that.description,_that.prepTimeMinutes,_th
 @JsonSerializable()
 
 class _Recipe extends Recipe {
-  const _Recipe({required this.id, required this.title, required this.description, required this.prepTimeMinutes, required this.cookTimeMinutes, required this.difficulty, required final  List<RecipeIngredient> ingredients, required final  List<RecipeStep> steps, this.imageUrl, this.source = 'gemini', this.createdBy = 'system', this.isCurated = false, this.isPublic = true, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) this.createdAt}): _ingredients = ingredients,_steps = steps,super._();
+  const _Recipe({required this.id, required this.title, this.description = '', this.prepTimeMinutes = 0, required this.cookTimeMinutes, @JsonKey(unknownEnumValue: Difficulty.easy) this.difficulty = Difficulty.easy, required final  List<RecipeIngredient> ingredients, required final  List<RecipeStep> steps, this.imageUrl, this.source = 'gemini', this.createdBy = 'system', this.isCurated = false, this.isPublic = true, @JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) this.createdAt}): _ingredients = ingredients,_steps = steps,super._();
   factory _Recipe.fromJson(Map<String, dynamic> json) => _$RecipeFromJson(json);
 
 @override final  String id;
 @override final  String title;
-@override final  String description;
-@override final  int prepTimeMinutes;
+@override@JsonKey() final  String description;
+@override@JsonKey() final  int prepTimeMinutes;
 @override final  int cookTimeMinutes;
-@override final  Difficulty difficulty;
+@override@JsonKey(unknownEnumValue: Difficulty.easy) final  Difficulty difficulty;
  final  List<RecipeIngredient> _ingredients;
 @override List<RecipeIngredient> get ingredients {
   if (_ingredients is EqualUnmodifiableListView) return _ingredients;
@@ -285,7 +285,7 @@ abstract mixin class _$RecipeCopyWith<$Res> implements $RecipeCopyWith<$Res> {
   factory _$RecipeCopyWith(_Recipe value, $Res Function(_Recipe) _then) = __$RecipeCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String title, String description, int prepTimeMinutes, int cookTimeMinutes, Difficulty difficulty, List<RecipeIngredient> ingredients, List<RecipeStep> steps, String? imageUrl, String source, String createdBy, bool isCurated, bool isPublic,@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? createdAt
+ String id, String title, String description, int prepTimeMinutes, int cookTimeMinutes,@JsonKey(unknownEnumValue: Difficulty.easy) Difficulty difficulty, List<RecipeIngredient> ingredients, List<RecipeStep> steps, String? imageUrl, String source, String createdBy, bool isCurated, bool isPublic,@JsonKey(fromJson: _dateTimeFromTimestamp, toJson: _dateTimeToTimestamp) DateTime? createdAt
 });
 
 
@@ -598,7 +598,7 @@ as bool,
 /// @nodoc
 mixin _$RecipeStep {
 
- int get order; String get instruction; int? get timerSeconds; String? get title;
+@JsonKey(readValue: _readStepOrder) int get order; String get instruction; int? get timerSeconds; String? get title;
 /// Create a copy of RecipeStep
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -631,7 +631,7 @@ abstract mixin class $RecipeStepCopyWith<$Res>  {
   factory $RecipeStepCopyWith(RecipeStep value, $Res Function(RecipeStep) _then) = _$RecipeStepCopyWithImpl;
 @useResult
 $Res call({
- int order, String instruction, int? timerSeconds, String? title
+@JsonKey(readValue: _readStepOrder) int order, String instruction, int? timerSeconds, String? title
 });
 
 
@@ -739,7 +739,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int order,  String instruction,  int? timerSeconds,  String? title)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(readValue: _readStepOrder)  int order,  String instruction,  int? timerSeconds,  String? title)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _RecipeStep() when $default != null:
 return $default(_that.order,_that.instruction,_that.timerSeconds,_that.title);case _:
@@ -760,7 +760,7 @@ return $default(_that.order,_that.instruction,_that.timerSeconds,_that.title);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int order,  String instruction,  int? timerSeconds,  String? title)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(readValue: _readStepOrder)  int order,  String instruction,  int? timerSeconds,  String? title)  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStep():
 return $default(_that.order,_that.instruction,_that.timerSeconds,_that.title);case _:
@@ -780,7 +780,7 @@ return $default(_that.order,_that.instruction,_that.timerSeconds,_that.title);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int order,  String instruction,  int? timerSeconds,  String? title)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(readValue: _readStepOrder)  int order,  String instruction,  int? timerSeconds,  String? title)?  $default,) {final _that = this;
 switch (_that) {
 case _RecipeStep() when $default != null:
 return $default(_that.order,_that.instruction,_that.timerSeconds,_that.title);case _:
@@ -795,10 +795,10 @@ return $default(_that.order,_that.instruction,_that.timerSeconds,_that.title);ca
 @JsonSerializable()
 
 class _RecipeStep implements RecipeStep {
-  const _RecipeStep({required this.order, required this.instruction, this.timerSeconds, this.title});
+  const _RecipeStep({@JsonKey(readValue: _readStepOrder) required this.order, required this.instruction, this.timerSeconds, this.title});
   factory _RecipeStep.fromJson(Map<String, dynamic> json) => _$RecipeStepFromJson(json);
 
-@override final  int order;
+@override@JsonKey(readValue: _readStepOrder) final  int order;
 @override final  String instruction;
 @override final  int? timerSeconds;
 @override final  String? title;
@@ -836,7 +836,7 @@ abstract mixin class _$RecipeStepCopyWith<$Res> implements $RecipeStepCopyWith<$
   factory _$RecipeStepCopyWith(_RecipeStep value, $Res Function(_RecipeStep) _then) = __$RecipeStepCopyWithImpl;
 @override @useResult
 $Res call({
- int order, String instruction, int? timerSeconds, String? title
+@JsonKey(readValue: _readStepOrder) int order, String instruction, int? timerSeconds, String? title
 });
 
 

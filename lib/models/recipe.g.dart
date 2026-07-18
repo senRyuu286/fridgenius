@@ -9,10 +9,16 @@ part of 'recipe.dart';
 _Recipe _$RecipeFromJson(Map<String, dynamic> json) => _Recipe(
   id: json['id'] as String,
   title: json['title'] as String,
-  description: json['description'] as String,
-  prepTimeMinutes: (json['prepTimeMinutes'] as num).toInt(),
+  description: json['description'] as String? ?? '',
+  prepTimeMinutes: (json['prepTimeMinutes'] as num?)?.toInt() ?? 0,
   cookTimeMinutes: (json['cookTimeMinutes'] as num).toInt(),
-  difficulty: $enumDecode(_$DifficultyEnumMap, json['difficulty']),
+  difficulty:
+      $enumDecodeNullable(
+        _$DifficultyEnumMap,
+        json['difficulty'],
+        unknownValue: Difficulty.easy,
+      ) ??
+      Difficulty.easy,
   ingredients: (json['ingredients'] as List<dynamic>)
       .map((e) => RecipeIngredient.fromJson(e as Map<String, dynamic>))
       .toList(),
@@ -34,8 +40,8 @@ Map<String, dynamic> _$RecipeToJson(_Recipe instance) => <String, dynamic>{
   'prepTimeMinutes': instance.prepTimeMinutes,
   'cookTimeMinutes': instance.cookTimeMinutes,
   'difficulty': _$DifficultyEnumMap[instance.difficulty]!,
-  'ingredients': instance.ingredients,
-  'steps': instance.steps,
+  'ingredients': instance.ingredients.map((e) => e.toJson()).toList(),
+  'steps': instance.steps.map((e) => e.toJson()).toList(),
   'imageUrl': instance.imageUrl,
   'source': instance.source,
   'createdBy': instance.createdBy,
@@ -65,7 +71,7 @@ Map<String, dynamic> _$RecipeIngredientToJson(_RecipeIngredient instance) =>
     };
 
 _RecipeStep _$RecipeStepFromJson(Map<String, dynamic> json) => _RecipeStep(
-  order: (json['order'] as num).toInt(),
+  order: (_readStepOrder(json, 'order') as num).toInt(),
   instruction: json['instruction'] as String,
   timerSeconds: (json['timerSeconds'] as num?)?.toInt(),
   title: json['title'] as String?,

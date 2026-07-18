@@ -1,3 +1,5 @@
+import 'dart:developer' as developer;
+
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../models/recipe.dart';
@@ -41,6 +43,8 @@ class FavoritesViewModel extends AsyncNotifier<List<Recipe>> {
         await repo.addFavorite(user.uid, recipe);
       }
     } catch (e, st) {
+      developer.log('Favorites toggle failed for ${recipe.id}',
+          name: 'favorites', error: e, stackTrace: st);
       // Revert the optimistic change and surface the error.
       state = AsyncData(previous);
       state = AsyncError(e, st);

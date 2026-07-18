@@ -1,0 +1,10 @@
+# Make generated `toJson()` recurse into nested model objects
+# (e.g. Recipe.ingredients / .steps) so the output is pure Maps/Lists.
+# Without this, nested objects are passed through as Dart instances, which
+# Firestore's set()/update() reject with "Invalid argument: Instance of ...".
+targets:
+  $default:
+    builders:
+      json_serializable:
+        options:
+          explicit_to_json: true

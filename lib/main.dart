@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'firebase_options.dart';
 import 'router/app_router.dart';
+import 'services/preferences_service.dart';
 import 'theme/app_theme.dart';
 
 Future<void> main() async {
@@ -14,7 +16,13 @@ Future<void> main() async {
     providerAndroid: AndroidDebugProvider(),
     providerApple: AppleAppAttestProvider()
   );
-  runApp(const ProviderScope(child: FridgeniusApp()));
+  final prefs = await SharedPreferences.getInstance();
+  runApp(
+    ProviderScope(
+      overrides: [sharedPreferencesProvider.overrideWithValue(prefs)],
+      child: const FridgeniusApp(),
+    ),
+  );
 }
 
 class FridgeniusApp extends ConsumerWidget {

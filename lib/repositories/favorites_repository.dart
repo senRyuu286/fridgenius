@@ -30,13 +30,37 @@ class FirestoreFavoritesRepository implements FavoritesRepository {
   Future<List<Recipe>> fetchFavorites(String userId) async {
     final snapshot =
         await _col(userId).orderBy('savedAt', descending: true).get();
-    return snapshot.docs.map((doc) {
+
+    final recipes = <Recipe>[];
+    for (final doc in snapshot.docs) {
       final data = doc.data();
-      final recipeData =
-          Map<String, dynamic>.from(data['recipe'] as Map? ?? const {});
-      recipeData['id'] = doc.id;
-      return Recipe.fromJson(recipeData);
-    }).toList();
+      // Real recipe id: seed favorites carry a `recipeId` field; app-written
+      // favorites use the recipe id as the favorite doc id.
+      final recipeId = (data['recipeId'] as String?) ?? doc.id;
+      try {
+        // Prefer the canonical recipe from the catalog so favorites always
+        // render with full data, even if only a thin snapshot was saved.
+        final catalogDoc =
+            await _firestore.collection('recipes').doc(recipeId).get();
+        if (catalogDoc.exists) {
+          final rd = catalogDoc.data() ?? <String, dynamic>{};
+          rd['id'] = catalogDoc.id;
+          recipes.add(Recipe.fromJson(rd));
+          continue;
+        }
+        // Fall back to the stored snapshot. Schema varies across writers:
+        // `recipe` (app) or `recipeSnapshot` (seed).
+        final snap = (data['recipe'] ?? data['recipeSnapshot']) as Map?;
+        if (snap != null) {
+          final rd = Map<String, dynamic>.from(snap);
+          rd['id'] = recipeId;
+          recipes.add(Recipe.fromJson(rd));
+        }
+      } catch (_) {
+        // Skip a single malformed favorite rather than failing the whole list.
+      }
+    }
+    return recipes;
   }
 
   @override
